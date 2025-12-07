@@ -8,21 +8,21 @@ CREATE TABLE owners (
 
 CREATE TABLE cars (
 	id SERIAL PRIMARY KEY,
-	car_number VARCHAR(20) NOT NULL,
+	car_number VARCHAR(20) NOT NULL UNIQUE,
 	brand VARCHAR(30) NOT NULL,
 	id_owner INTEGER REFERENCES owners(id)
 )
 
 CREATE TABLE spots (
 	id SERIAL PRIMARY KEY,
-	spot_number INTEGER NOT NULL,
+	spot_number INTEGER NOT NULL UNIQUE,
 	is_available BOOLEAN NOT NULL
 )
 
 CREATE TABLE bookings (
 	id SERIAL PRIMARY KEY,
 	id_car INTEGER REFERENCES cars(id) NOT NULL,
-	id_spot INTEGER REFERENCES spot(id) NOT NULL,
+	id_spot INTEGER REFERENCES spots(id) NOT NULL,
 	start_date TIMESTAMP NOT NULL,
 	end_date TIMESTAMP NOT NULL,
 	is_paid BOOLEAN NOT NULL,
