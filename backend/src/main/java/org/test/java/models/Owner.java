@@ -7,7 +7,7 @@ public class Owner {
     private String middleName;
     private String phoneNumber;
 
-    Owner(){};
+    public Owner(){};
 
     public Owner(int id, String firstName, String lastName, String middleName, String phoneNumber) {
         this.id = id;

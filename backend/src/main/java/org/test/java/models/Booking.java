@@ -1,5 +1,6 @@
 package org.test.java.models;
 
+
 public class Booking {
     private int id;
     private int idCar;
@@ -9,7 +10,7 @@ public class Booking {
     private boolean isPaid;
     private boolean isActive;
 
-    Booking(){};
+    public Booking(){};
 
     public Booking(int id, int idCar, int idSpot, String startDate, String endDate, boolean isPaid, boolean isActive) {
         this.id = id;

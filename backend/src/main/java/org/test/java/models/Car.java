@@ -1,14 +1,15 @@
 package org.test.java.models;
 
+
 public class Car {
     private int id;
     private String carNumber;
     private String brand;
     private int idOwner;
 
-    Car(){};
+    public Car(){};
 
-    Car(int id, String carNumber, String brand, int idOwner){
+    public Car(int id, String carNumber, String brand, int idOwner){
         this.id = id;
         this.carNumber = carNumber;
         this.brand = brand;
