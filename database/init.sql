@@ -62,4 +62,41 @@ INSERT INTO cars (car_number, brand, id_owner) VALUES
 ('М777МС777', 'Volkswagen Tiguan', 12),
 ('С065АН777', 'Nissan Qashqai', 13),
 ('У321УУ777', 'Skoda Octavia', 14),
-('Т654ТТ777', 'Mazda CX-5', 15);
+('Т654ТТ777', 'Mazda CX-5', 15),
+('А999АА777', 'Toyota Land Cruiser', 1),
+('В777ВВ777', 'Porsche Cayenne', 2),
+('М123ММ777', 'Hyundai Creta', 6),
+('О111ОО777', 'Volkswagen Polo', 11),
+('С555СС777', 'BMW 3 Series', 3);
+
+INSERT INTO spots (spot_number, is_available) VALUES
+(1, true),
+(2, false),
+(3, true),
+(4, true),
+(5, false),
+(6, true),
+(7, true),
+(8, false),
+(9, true),
+(10, true),
+(11, false),
+(12, true),
+(13, true),
+(14, false),
+(15, true);
+
+
+INSERT INTO bookings (id_car, id_spot, start_date, end_date, is_paid, is_active) VALUES
+(1, 2, '2024-01-15 08:00:00', '2024-01-20 18:00:00', true, true),
+(3, 5, '2024-01-16 09:00:00', '2024-01-22 17:00:00', true, true),
+(5, 8, '2024-01-17 10:00:00', '2024-01-25 19:00:00', false, true),
+(7, 11, '2024-01-18 07:00:00', '2024-01-21 20:00:00', true, true),
+(11, 14, '2024-01-19 08:30:00', '2024-01-26 18:30:00', true, true),
+(13, 2, '2024-01-14 12:00:00', '2024-01-16 14:00:00', true, true),
+(16, 5, '2024-01-23 09:00:00', '2024-01-30 17:00:00', false, true),
+(17, 8, '2024-01-26 10:00:00', '2024-02-02 19:00:00', true, true),
+(19, 11, '2024-01-22 07:00:00', '2024-01-29 20:00:00', false, true),
+(20, 14, '2024-01-27 08:30:00', '2024-02-03 18:30:00', true, true),
+(2, 1, '2024-01-10 08:00:00', '2024-01-12 18:00:00', true, false),
+(4, 3, '2024-01-11 09:00:00', '2024-01-13 17:00:00', true, false);

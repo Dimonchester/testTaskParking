@@ -62,7 +62,7 @@ public class Booking {
         this.endDate = endDate;
     }
 
-    public boolean getIsPaid() {
+    public boolean getPaid() {
         return isPaid;
     }
 
@@ -70,7 +70,7 @@ public class Booking {
         isPaid = paid;
     }
 
-    public boolean getIsActive() {
+    public boolean getActive() {
         return isActive;
     }
 
