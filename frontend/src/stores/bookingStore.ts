@@ -28,8 +28,8 @@ export const useBookingStore = defineStore('booking', () => {
 
     const fetchBookings = async (searchCar: string = '', searchName: string = '') => {
         loading.value = true;
-            const response = await axios.get(API_BOOKING_URL, {
-                params: { carNumber: searchCar, ownerName: searchName }
+        const response = await axios.get(API_BOOKING_URL, {
+            params: { carNumber: searchCar, ownerName: searchName }
         });
         bookings.value = response.data;
         loading.value = false;
