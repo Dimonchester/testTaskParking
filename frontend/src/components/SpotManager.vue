@@ -10,7 +10,7 @@
       :data="paginatedSpots" 
       v-loading="store.loading" 
       style="width: 100%; margin-top: 20px" 
-      border
+      borderca
       :row-key="(row) => row.id"
     >
       <el-table-column prop="id" label="ID" width="60" />
