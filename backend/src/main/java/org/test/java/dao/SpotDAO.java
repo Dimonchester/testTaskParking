@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
-import org.test.java.models.Booking;
+import org.springframework.stereotype.Repository;
 import org.test.java.models.Spot;
 
 import java.util.List;
 
-@Component
+@Repository
 public class SpotDAO {
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<Spot> spotRowMapper = new BeanPropertyRowMapper<>(Spot.class);

@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="84158f23-81f9-4eff-a3bd-16c9276cbc11" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/BookingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dto/BookingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dto/BookingDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/models/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/models/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/views/BookingPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/BookingPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/SpotDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/SpotDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

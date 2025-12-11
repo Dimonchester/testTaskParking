@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.test.java.models.Owner;
 
 import java.util.List;
 
-@Component
+@Repository
 public class OwnerDAO {
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<Owner> ownerRowMapper = new BeanPropertyRowMapper<>(Owner.class);

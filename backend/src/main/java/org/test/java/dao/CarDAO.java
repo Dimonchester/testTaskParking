@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.test.java.dto.CarDTO;
 import org.test.java.models.Car;
 
 import java.util.List;
 
-@Component
+@Repository
 public class CarDAO {
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<CarDTO> carDTORowMapper = ((rs, rowNum) -> {

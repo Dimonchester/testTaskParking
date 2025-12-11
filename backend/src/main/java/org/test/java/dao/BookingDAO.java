@@ -3,13 +3,13 @@ package org.test.java.dao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.test.java.dto.BookingDTO;
 import org.test.java.models.Booking;
 
 import java.util.List;
 
-@Component
+@Repository
 public class BookingDAO {
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<BookingDTO> bookingDtoMapper = (rs, rowNum) -> {
