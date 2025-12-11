@@ -61,7 +61,7 @@
         <el-table-column label="Оплата" width="150" align="center">
           <template #default="{ row }">
              <el-switch
-                v-model="row.paid"
+                v-model="row.isPaid"
                 active-text="Да"
                 inactive-text="Нет"
                 inline-prompt
@@ -200,12 +200,17 @@ const submitBooking = async () => {
         ElMessage.warning('Заполните все поля');
         return;
     }
+    const selectedSpot = managementStore.spots.find((s: any) => s.id === newBooking.idSpot);
+
+    if (!selectedSpot || !selectedSpot.isAvailable){
+        ElMessage.error('Это место уже занято');
+        dialogVisible.value = false;
+        await bookingStore.createBooking(newBooking);
+        return;
+    }
+
     await bookingStore.createBooking(newBooking);
     dialogVisible.value = false;
-
-    newBooking.idCar = null;
-    newBooking.idSpot = null;
-    newBooking.endDate = '';
 };
 
 const formatDate = (dateStr: string) => {

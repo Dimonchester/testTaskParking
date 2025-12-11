@@ -53,7 +53,7 @@ public class BookingController {
 
     @PutMapping("/{id}/pay")
     public void updatePaymentStatus(@PathVariable("id") int id, @RequestBody Map<String, Boolean> payload) {
-        Boolean isPaid = payload.get("isPaid");
+        Boolean isPaid = payload.get("getPaid");
         if (isPaid != null) {
             bookingDAO.updatePaymentStatus(id, isPaid);
         }

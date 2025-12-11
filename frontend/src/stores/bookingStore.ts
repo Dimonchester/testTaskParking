@@ -43,7 +43,7 @@ export const useBookingStore = defineStore('booking', () => {
     };
 
     const togglePayment = async (id: number, currentStatus: boolean) => {
-        await axios.put(`${API_BOOKING_URL}/${id}/pay`, { isPaid: !currentStatus });
+        await axios.put(`${API_BOOKING_URL}/${id}/pay`, { getPaid: !currentStatus });
         ElMessage.success(currentStatus ? 'Оплата отменена' : 'Оплата принята');
         const item = bookings.value.find(b => b.id === id);
             if (item) item.isPaid = !currentStatus;
