@@ -9,6 +9,7 @@ import org.test.java.dao.SpotDAO;
 import org.test.java.dto.BookingDTO;
 import org.test.java.models.Booking;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -39,10 +40,6 @@ public class BookingController {
 
     @PostMapping
     public void createBooking(@RequestBody Booking booking) {
-        if (!spotDAO.isSpotAvailable(booking.getIdSpot())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Место уже занято");
-        }
-
         booking.setStartDate(LocalDateTime.now());
         booking.setPaid(false);
 

@@ -37,7 +37,6 @@ export const useBookingStore = defineStore('booking', () => {
 
     const createBooking = async (booking: NewBooking) => {
         await axios.post(API_BOOKING_URL, booking);
-        ElMessage.success('Место успешно забронировано');
         await fetchBookings();
     };
 

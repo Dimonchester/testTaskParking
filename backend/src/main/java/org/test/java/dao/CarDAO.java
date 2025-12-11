@@ -32,9 +32,16 @@ public class CarDAO {
     public List<CarDTO> findAll(){
         return jdbcTemplate.query("SELECT cars.id, cars.car_number, cars.brand, owners.first_name, owners.last_name, owners.middle_name, cars.id_owner FROM cars JOIN owners ON (cars.id_owner = owners.id);", carDTORowMapper);
     }
-
+        
     public List<CarDTO> findByNumber(String carNumber){
-        return jdbcTemplate.query("SELECT * FROM cars WHERE car_number ILIKE ?;", carDTORowMapper, "%" + carNumber + "%");
+        return jdbcTemplate.query(
+                "SELECT cars.id, cars.car_number, cars.brand, cars.id_owner, " +
+                        "owners.first_name, owners.last_name, owners.middle_name " +
+                        "FROM cars " +
+                        "LEFT JOIN owners ON cars.id_owner = owners.id " +
+                        "WHERE cars.car_number ILIKE ?;",
+                carDTORowMapper, "%" + carNumber + "%"
+        );
     }
 
     public void save(CarDTO carDTO){

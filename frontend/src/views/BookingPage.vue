@@ -103,7 +103,7 @@
     </el-card>
 
     <el-dialog v-model="dialogVisible" title="Новое бронирование" width="500px">
-        <el-form label-position="top">
+        <el-form label-position="top" :model="newBooking" :rules="rules">
             <el-form-item label="Выберите автомобиль">
                 <el-select 
                     v-model="newBooking.idCar" 
@@ -134,13 +134,16 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="Дата окончания брони">
+            <el-form-item label="Дата окончания брони" prop="endDate">
                 <el-date-picker
                     v-model="newBooking.endDate"
                     type="datetime"
                     placeholder="Выберите дату и время"
                     style="width: 100%"
                     value-format="YYYY-MM-DDTHH:mm:ss" 
+                    :disabled-date="disabledDate"
+                    :disabled-time="disabledTime"
+                    :default-value="new Date()"
                 />
             </el-form-item>
         </el-form>
@@ -156,8 +159,13 @@
 import { ref, reactive, onMounted, computed  } from 'vue';
 import { useBookingStore, type NewBooking, type BookingView } from '../stores/bookingStore';
 import { useManagementStore } from '../stores/managementStore';
-import { ElMessage } from 'element-plus';
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 const bookingStore = useBookingStore();
 const managementStore = useManagementStore(); 
@@ -186,6 +194,40 @@ const newBooking = reactive<NewBooking>({
     idSpot: null,
     endDate: ''
 });
+
+const rules: FormRules = {
+  endDate: [
+    { required: false, message: 'Пожалуйста, выберите дату окончания', trigger: 'change' },
+    { 
+      validator: (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('Пожалуйста, выберите дату'));
+          return;
+        }
+        
+        const selectedDate = dayjs(value);
+        const now = dayjs();
+        
+        if (selectedDate.isBefore(now, 'minute')) {
+          callback(new Error('Дата окончания не может быть раньше текущего времени'));
+        } else {
+          callback();
+        }
+      },
+      trigger: 'change'
+    }
+  ],
+  idCar: [
+    { required: true, message: 'Пожалуйста, выберите автомобиль', trigger: 'change' }
+  ],
+  idSpot: [
+    { required: true, message: 'Пожалуйста, выберите место', trigger: 'change' }
+  ]
+};
+
+const disabledDate = (time: Date) => {
+  return time.getTime() < Date.now() - 24 * 60 * 60 * 1000;
+};
 
 const handleSearch = () => {
     bookingStore.fetchBookings(searchCar.value, searchName.value);
@@ -226,6 +268,26 @@ const submitBooking = async () => {
         ElMessage.warning('Заполните все поля');
         return;
     }
+    const selectedDate = dayjs(newBooking.endDate);
+    const now = dayjs();
+
+    if (selectedDate.isBefore(now)) {
+        ElMessage.error('Дата окончания не может быть раньше текущего времени');
+        return;
+    }
+
+    const minBookingDuration = 15;
+    if (selectedDate.diff(now, 'minute') < minBookingDuration) {
+        ElMessage.warning(`Минимальное время бронирования - ${minBookingDuration} минут`);
+        return;
+    }
+  
+    const maxBookingDuration = 30;
+    if (selectedDate.diff(now, 'day') > maxBookingDuration) {
+        ElMessage.warning(`Максимальное время бронирования - ${maxBookingDuration} дней`);
+        return;
+    }
+
     const selectedSpot = managementStore.spots.find((s: any) => s.id === newBooking.idSpot);
 
     try {
