@@ -1,13 +1,15 @@
 package org.test.java.dto;
 
+import java.time.LocalDateTime;
+
 public class BookingDTO {
     private int id;
     private String carNumber;
     private String carBrand;
     private String ownerFio;
     private int spotNumber;
-    private String startDate;
-    private String endDate;
+    private LocalDateTime  startDate;
+    private LocalDateTime endDate;
     private boolean isPaid;
     private boolean isActive;
 
@@ -51,19 +53,19 @@ public class BookingDTO {
         this.spotNumber = spotNumber;
     }
 
-    public String getStartDate() {
+    public LocalDateTime  getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDateTime  startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime  getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDateTime  endDate) {
         this.endDate = endDate;
     }
 

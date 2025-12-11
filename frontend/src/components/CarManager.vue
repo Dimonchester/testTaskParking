@@ -27,8 +27,10 @@
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="carNumber" label="Госномер" width="150" />
       <el-table-column prop="brand" label="Марка / Модель" min-width="180" />
-      
-      <el-table-column prop="idOwner" label="ID Владельца" width="120" />
+
+      <el-table-column prop="ownerFio" label="ФИО Владельца" width="300">
+
+      </el-table-column>
       
       <el-table-column label="Действия" width="180" fixed="right">
         <template #default="scope">
@@ -59,8 +61,22 @@
           <el-input v-model="currentCar.brand" placeholder="Toyota Camry" />
         </el-form-item>
 
-        <el-form-item label="ID Владельца">
-          <el-input v-model.number="currentCar.idOwner" type="number" placeholder="Введите ID" />
+
+
+        <el-form-item label="Выберите ФИО">
+          <el-select 
+            v-model="currentCar.idOwner" 
+            placeholder="ФИО Владельца" 
+            style="width: 100%"
+            @change="handleOwnerChange"
+          >
+            <el-option
+              v-for="fio in allFio"
+              :key="fio.idOwner"
+              :label="`${fio.idOwner}, ${fio.ownerFio}`"
+              :value="fio.idOwner"
+            />
+          </el-select>
         </el-form-item>
 
       </el-form>
@@ -74,15 +90,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue';
-import { useManagementStore, type Car } from '../stores/managementStore';
+import { ref, onMounted, reactive, computed } from 'vue';
+import { useManagementStore, type Car} from '../stores/managementStore';
 import { ElMessage } from 'element-plus';
 
 const store = useManagementStore();
 const searchQuery = ref('');
 const dialogVisible = ref(false);
+const allFio = ref<any[]>([]);
 
-const initialCarState: Car = { carNumber: '', brand: '', idOwner: 0 };
+const initialCarState: Car = { carNumber: '', brand: '', ownerFio: '', idOwner: 0 };
 const currentCar = reactive<Car>({ ...initialCarState });
 
 const handleSearch = () => {
@@ -96,10 +113,23 @@ const openDialog = (car: Car | null) => {
     Object.assign(currentCar, initialCarState); 
   }
   dialogVisible.value = true;
+
+  const carsMap = new Map<number, Car>();
+  
+  store.cars.forEach(carItem => {
+    if (carItem.idOwner && !carsMap.has(carItem.idOwner)) {
+      carsMap.set(carItem.idOwner, carItem);
+    }
+  });
+  
+  allFio.value = Array.from(carsMap.values()).sort((a: Car, b: Car) => 
+      (a.ownerFio || '').localeCompare(b.ownerFio || '', 'ru')
+  );
+
 };
 
 const handleSave = async () => {
-  if (!currentCar.carNumber || !currentCar.brand || !currentCar.idOwner) {
+  if (!currentCar.carNumber || !currentCar.brand || !currentCar.ownerFio) {
     ElMessage.warning('Заполните все поля');
     return;
   }
@@ -126,6 +156,13 @@ const handleDelete = async (id: number | undefined) => {
 onMounted(() => {
   store.fetchCars();
 });
+
+const handleOwnerChange = (selectedId: number) => {
+  const selectedItem = allFio.value.find(item => item.idOwner === selectedId);
+  if (selectedItem) {
+    currentCar.ownerFio = selectedItem.ownerFio;
+  }
+};
 </script>
 
 <style scoped>

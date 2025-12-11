@@ -1,18 +1,20 @@
 package org.test.java.models;
 
 
+import java.time.LocalDateTime;
+
 public class Booking {
     private int id;
     private int idCar;
     private int idSpot;
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime  endDate;
     private boolean isPaid;
     private boolean isActive;
 
     public Booking(){};
 
-    public Booking(int id, int idCar, int idSpot, String startDate, String endDate, boolean isPaid, boolean isActive) {
+    public Booking(int id, int idCar, int idSpot, LocalDateTime  startDate, LocalDateTime  endDate, boolean isPaid, boolean isActive) {
         this.id = id;
         this.idCar = idCar;
         this.idSpot = idSpot;
@@ -46,19 +48,19 @@ public class Booking {
         this.idSpot = idSpot;
     }
 
-    public String getStartDate() {
+    public LocalDateTime  getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDateTime  startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime  getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDateTime  endDate) {
         this.endDate = endDate;
     }
 

@@ -35,7 +35,7 @@ public class OwnerDAO {
     }
 
     public void update(int id, Owner updatedOwner){
-        jdbcTemplate.update("UPDATE owners SET first_name = ?, last_name = ?, middle_name = ?, phone_number = ? WHERE id = ?;", updatedOwner.getFirstName(), updatedOwner.getMiddleName(),
+        jdbcTemplate.update("UPDATE owners SET first_name = ?, last_name = ?, middle_name = ?, phone_number = ? WHERE id = ?;", updatedOwner.getFirstName(), updatedOwner.getLastName(),
                 updatedOwner.getMiddleName(), updatedOwner.getPhoneNumber(), id);
     }
 

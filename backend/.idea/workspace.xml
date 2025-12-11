@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84158f23-81f9-4eff-a3bd-16c9276cbc11" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/BookingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/CarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/CarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/BookingDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/CarDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/CarDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/OwnerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/OwnerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/SpotDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/SpotDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dto/BookingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dto/BookingDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/models/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/models/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../database/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../database/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/CarManager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/CarManager.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/OwnerManager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/OwnerManager.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/SpotManager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/SpotManager.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/stores/bookingStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/stores/bookingStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/stores/managementStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/stores/managementStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/BookingPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/BookingPage.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,5 +73,16 @@
       <updated>1765109406292</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.test.java.models.Booking;
 import org.test.java.models.Spot;
 
 import java.util.List;
@@ -33,5 +34,9 @@ public class SpotDAO {
 
     public void delete(int id){
         jdbcTemplate.update("DELETE FROM spots WHERE id = ?", id);
+    }
+
+    public boolean isSpotAvailable(int idSpot){
+        return jdbcTemplate.queryForObject("SELECT is_available FROM spots WHERE id = ?", Boolean.class, idSpot);
     }
 }

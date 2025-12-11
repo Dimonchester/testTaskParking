@@ -1,8 +1,11 @@
 package org.test.java.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.test.java.dao.BookingDAO;
+import org.test.java.dao.SpotDAO;
 import org.test.java.dto.BookingDTO;
 import org.test.java.models.Booking;
 
@@ -15,10 +18,12 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:5173")
 public class BookingController {
     private final BookingDAO bookingDAO;
+    private final SpotDAO spotDAO;
 
     @Autowired
-    public BookingController(BookingDAO bookingDAO){
+    public BookingController(BookingDAO bookingDAO, SpotDAO spotDAO){
         this.bookingDAO = bookingDAO;
+        this.spotDAO = spotDAO;
     }
 
     @GetMapping
@@ -34,7 +39,11 @@ public class BookingController {
 
     @PostMapping
     public void createBooking(@RequestBody Booking booking) {
-        booking.setStartDate(String.valueOf(LocalDateTime.now()));
+        if (!spotDAO.isSpotAvailable(booking.getIdSpot())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Место уже занято");
+        }
+
+        booking.setStartDate(LocalDateTime.now());
         booking.setActive(true);
         booking.setPaid(false);
 
@@ -50,8 +59,11 @@ public class BookingController {
         }
     }
 
-    @PutMapping("/{id}/complete")
-    public void completeBooking(@PathVariable("id") int id) {
-        bookingDAO.deactivate(id);
+    @DeleteMapping("/{id}")
+    public void deleteBooking(@PathVariable("id") int id) {
+        Booking booking = bookingDAO.findById(id);
+
+        bookingDAO.freeSpot(booking.getIdSpot());
+        bookingDAO.delete(id);
     }
 }

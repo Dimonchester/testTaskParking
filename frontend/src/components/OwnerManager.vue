@@ -80,7 +80,6 @@ import { useManagementStore, type Owner } from '../stores/managementStore';
 import { ElMessage } from 'element-plus';
 
 const store = useManagementStore();
-
 const searchQuery = ref('');
 const dialogVisible = ref(false);
 
@@ -102,7 +101,7 @@ const openDialog = (owner: Owner | null) => {
 
 const handleSave = async () => {
   if (!currentOwner.lastName || !currentOwner.firstName) {
-    ElMessage.error('Поля Имя и Фамилия обязательны.');
+    ElMessage.warning('Поля Имя и Фамилия обязательны.');
     return;
   }
   

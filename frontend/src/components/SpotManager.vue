@@ -22,12 +22,12 @@
       <el-table-column label="Статус" width="150" align="center">
         <template #default="{ row }">
             <el-switch
+                disabled 
                 v-model="row.isAvailable" 
                 active-text="Свободно"
                 inactive-text="Занято"
                 inline-prompt
                 style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-                @change="() => handleStatusChange(row)" 
             />
         </template>
       </el-table-column>

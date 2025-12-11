@@ -3,6 +3,7 @@ package org.test.java.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.test.java.dao.CarDAO;
+import org.test.java.dto.CarDTO;
 import org.test.java.models.Car;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class CarController {
     }
 
     @GetMapping
-    public List<Car> findCar(@RequestParam(required = false) String carNumber){
+    public List<CarDTO> findCar(@RequestParam(required = false) String carNumber){
         if (carNumber != null && !carNumber.isEmpty()){
             return carDAO.findByNumber(carNumber);
         }
@@ -27,13 +28,13 @@ public class CarController {
     }
 
     @PostMapping
-    public void saveCar(@RequestBody Car car){
-        carDAO.save(car);
+    public void saveCar(@RequestBody CarDTO carDTO){
+        carDAO.save(carDTO);
     }
 
     @PutMapping("/{id}")
-    public void updateCar(@PathVariable("id") int id, @RequestBody Car car){
-        carDAO.update(id, car);
+    public void updateCar(@PathVariable("id") int id, @RequestBody CarDTO carDTO){
+        carDAO.update(id, carDTO);
     }
 
     @DeleteMapping("/{id}")

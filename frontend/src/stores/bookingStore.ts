@@ -16,8 +16,8 @@ export interface BookingView {
 }
 
 export interface NewBooking {
-    carId: number | null;
-    spotId: number | null;
+    idCar: number | null;
+    idSpot: number | null;
     endDate: string;
 }
 
@@ -49,11 +49,16 @@ export const useBookingStore = defineStore('booking', () => {
             if (item) item.isPaid = !currentStatus;
     };
 
-    const releaseSpot = async (id: number) => {
-        await axios.put(`${API_BOOKING_URL}/${id}/complete`);
-        ElMessage.success('Парковка завершена, место свободно');
+    const deleteBooking = async (id:number) =>{
+        try {
+        await axios.delete(`${API_BOOKING_URL}/${id}`); 
+        ElMessage.success('Бронирование успешно удалено.');
         await fetchBookings();
+    } catch (e) {
+        console.error('Ошибка при удалении бронирования:', e);
+        ElMessage.error('Не удалось удалить бронирование.');
+    }
     };
 
-    return { bookings, loading, fetchBookings, createBooking, togglePayment, releaseSpot };
+    return { bookings, loading, fetchBookings, createBooking, togglePayment, deleteBooking };
 })

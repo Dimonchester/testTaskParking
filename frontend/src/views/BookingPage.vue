@@ -77,7 +77,7 @@
                     title="Завершить парковку и освободить место?"
                     confirm-button-text="Да"
                     cancel-button-text="Отмена"
-                    @confirm="bookingStore.releaseSpot(row.id)"
+                    @confirm="bookingStore.deleteBooking(row.id)"
                 >
                     <template #reference>
                         <el-button type="danger" plain size="small">Освободить</el-button>
@@ -92,7 +92,7 @@
         <el-form label-position="top">
             <el-form-item label="Выберите автомобиль">
                 <el-select 
-                    v-model="newBooking.carId" 
+                    v-model="newBooking.idCar" 
                     placeholder="Поиск по номеру..." 
                     filterable 
                     remote
@@ -110,7 +110,7 @@
             </el-form-item>
 
             <el-form-item label="Выберите свободное место">
-                <el-select v-model="newBooking.spotId" placeholder="Номер места" style="width: 100%">
+                <el-select v-model="newBooking.idSpot" placeholder="Номер места" style="width: 100%">
                     <el-option
                         v-for="spot in freeSpots"
                         :key="spot.id"
@@ -157,8 +157,8 @@ const availableCars = ref<any[]>([]);
 const freeSpots = ref<any[]>([]);
 
 const newBooking = reactive<NewBooking>({
-    carId: null,
-    spotId: null,
+    idCar: null,
+    idSpot: null,
     endDate: ''
 });
 
@@ -172,12 +172,18 @@ const handlePaymentChange = (row: BookingView) => {
 
 const openCreateDialog = async () => {
     dialogVisible.value = true;
-    newBooking.carId = null;
-    newBooking.spotId = null;
+    newBooking.idCar = null;
+    newBooking.idSpot = null;
     newBooking.endDate = '';
     
     await managementStore.fetchSpots(); 
     freeSpots.value = managementStore.spots.filter((s: any) => s.isAvailable);
+
+    if (freeSpots.value.length === 0){
+        ElMessage.warning('Нет свободный мест для бронирования');
+        dialogVisible.value = false;
+        return;
+    }
 
     searchCarsRemote(''); 
 };
@@ -190,15 +196,15 @@ const searchCarsRemote = async (query: string) => {
 };
 
 const submitBooking = async () => {
-    if (!newBooking.carId || !newBooking.spotId || !newBooking.endDate) {
+    if (!newBooking.idCar || !newBooking.idSpot || !newBooking.endDate) {
         ElMessage.warning('Заполните все поля');
         return;
     }
     await bookingStore.createBooking(newBooking);
     dialogVisible.value = false;
 
-    newBooking.carId = null;
-    newBooking.spotId = null;
+    newBooking.idCar = null;
+    newBooking.idSpot = null;
     newBooking.endDate = '';
 };
 

@@ -14,6 +14,7 @@ export interface Car {
     id?: number;
     carNumber: string;
     brand: string;
+    ownerFio: string;
     idOwner: number;
 }
 
@@ -65,12 +66,12 @@ export const useManagementStore = defineStore('management', () => {
         } else {
             await axios.post(`${API_BASE_URL}/cars`, car);
         }
-        await fetchOwners();
+        await fetchCars();
     };
 
     const deleteCar = async (id: number) => {
         await axios.delete(`${API_BASE_URL}/cars/${id}`);
-        await fetchOwners();
+        await fetchCars();
     };
     
     const fetchSpots = async () => {
@@ -86,7 +87,7 @@ export const useManagementStore = defineStore('management', () => {
         } else {
             await axios.post(`${API_BASE_URL}/spots`, spot);
         }
-        await fetchOwners();
+        await fetchSpots();
     };
 
     const updateSpotStatus = async (spot: Spot) => {
@@ -100,7 +101,7 @@ export const useManagementStore = defineStore('management', () => {
 
     const deleteSpot = async (id: number) => {
         await axios.delete(`${API_BASE_URL}/spots/${id}`);
-        await fetchOwners();
+        await fetchSpots();
     };
 
     return {
