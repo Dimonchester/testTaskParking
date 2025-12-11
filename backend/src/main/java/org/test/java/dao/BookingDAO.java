@@ -16,7 +16,6 @@ public class BookingDAO {
         BookingDTO bookingDTO = new BookingDTO();
         bookingDTO.setId(rs.getInt("id"));
         bookingDTO.setPaid(rs.getBoolean("is_paid"));
-        bookingDTO.setActive(rs.getBoolean("is_active"));
         bookingDTO.setStartDate(rs.getTimestamp("start_date").toLocalDateTime());
         bookingDTO.setEndDate(rs.getTimestamp("end_date").toLocalDateTime());
         bookingDTO.setCarNumber(rs.getString("car_number"));
@@ -32,15 +31,14 @@ public class BookingDAO {
     }
 
     public List<BookingDTO> findAll(){
-        return jdbcTemplate.query("SELECT b.id, b.is_paid, b.start_date, b.end_date, b.is_active,\n" +
+        return jdbcTemplate.query("SELECT b.id, b.is_paid, b.start_date, b.end_date, \n" +
                 "       c.car_number, c.brand,\n" +
                 "       o.last_name, o.first_name, o.middle_name,\n" +
                 "       s.spot_number\n" +
                 "FROM bookings b\n" +
                 "JOIN cars c ON b.id_car = c.id\n" +
                 "JOIN owners o ON c.id_owner = o.id\n" +
-                "JOIN spots s ON b.id_spot = s.id\n" +
-                "WHERE b.is_active = true", bookingDtoMapper);
+                "JOIN spots s ON b.id_spot = s.id", bookingDtoMapper);
     }
 
     public List<BookingDTO> findBySearch(String carNumber, String ownerName){
@@ -48,7 +46,7 @@ public class BookingDAO {
         String sqlOwner = "%" + ownerName + "%";
 
 
-        return jdbcTemplate.query("SELECT b.id, b.is_paid, b.start_date, b.end_date, b.is_active,\n" +
+        return jdbcTemplate.query("SELECT b.id, b.is_paid, b.start_date, b.end_date, \n" +
                         "       c.car_number, c.brand,\n" +
                         "       o.last_name, o.first_name, o.middle_name,\n" +
                         "       s.spot_number\n" +
@@ -56,7 +54,6 @@ public class BookingDAO {
                         "JOIN cars c ON b.id_car = c.id\n" +
                         "JOIN owners o ON c.id_owner = o.id\n" +
                         "JOIN spots s ON b.id_spot = s.id\n" +
-                        "WHERE b.is_active = true \n" +
                         "AND (c.car_number ILIKE ?) \n" +
                         "AND (" +
                         "   o.last_name ILIKE ? OR " +
@@ -77,9 +74,9 @@ public class BookingDAO {
     }
 
     public void save(Booking booking){
-        jdbcTemplate.update("INSERT INTO bookings(id_car, id_spot, start_date, end_date, is_paid, is_active) VALUES (?, ?, ?, ?::timestamp, ?, ?);",
+        jdbcTemplate.update("INSERT INTO bookings(id_car, id_spot, start_date, end_date, is_paid) VALUES (?, ?, ?, ?::timestamp, ?);",
                 booking.getIdCar(), booking.getIdSpot(),
-                booking.getStartDate(), booking.getEndDate(), booking.getPaid(), booking.getActive());
+                booking.getStartDate(), booking.getEndDate(), booking.getPaid());
     }
 
     public void updatePaymentStatus(int id, boolean isPaid){
@@ -98,9 +95,9 @@ public class BookingDAO {
         jdbcTemplate.update("DELETE FROM bookings WHERE id = ?;", id);
     }
     public void update(int id, Booking updatedBooking){
-        jdbcTemplate.update("UPDATE bookings SET id_car = ?, id_spot = ?, start_date = ?, end_date = ?, is_paid = ?, is_active = ? WHERE id = ?;",
+        jdbcTemplate.update("UPDATE bookings SET id_car = ?, id_spot = ?, start_date = ?, end_date = ?, is_paid = ? WHERE id = ?;",
                 updatedBooking.getIdCar(), updatedBooking.getIdSpot(), updatedBooking.getStartDate(), updatedBooking.getEndDate(), updatedBooking.getPaid(),
-                updatedBooking.getActive(), id);
+                id);
     }
 
 }

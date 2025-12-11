@@ -7,10 +7,11 @@
     </div>
 
     <el-table 
-      :data="store.spots" 
+      :data="paginatedSpots" 
       v-loading="store.loading" 
       style="width: 100%; margin-top: 20px" 
       border
+      :row-key="(row) => row.id"
     >
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="spotNumber" label="Номер места" width="150" align="center">
@@ -46,11 +47,39 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <div class="pagination-container">
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :total="totalSpots"
+        :disabled="store.loading"
+        layout="prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+
+        <el-dialog v-model="dialogVisible" :title="'Новое парковочное место'" width="500px">
+      <el-form :model="currentSpot" label-width="120px">
+        
+        <el-form-item label="Номер места">
+          <el-input v-model="currentSpot.spotNumber" placeholder="10" />
+        </el-form-item>
+
+      </el-form>
+
+      <template #footer>
+        <el-button @click="dialogVisible = false">Отмена</el-button>
+        <el-button type="primary" @click="handleSave">Сохранить</el-button>
+      </template>
+    </el-dialog>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, computed } from 'vue';
 import { useManagementStore, type Spot } from '../stores/managementStore';
 import { ElMessage } from 'element-plus';
 
@@ -59,6 +88,16 @@ const dialogVisible = ref(false);
 
 const initialSpotState: Spot = { spotNumber: 0, isAvailable: true };
 const currentSpot = reactive<Spot>({ ...initialSpotState });
+
+const currentPage = ref(1);
+const pageSize = ref(10);
+const totalSpots = computed(() => store.spots.length);
+
+const paginatedSpots = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value;
+  const end = start + pageSize.value;
+  return store.spots.slice(start, end);
+});
 
 const openDialog = (spot: Spot | null) => {
   if (spot) {
@@ -92,6 +131,7 @@ const handleSave = async () => {
     await store.saveSpot({ ...currentSpot });
     ElMessage.success('Парковочное место сохранено.');
     dialogVisible.value = false;
+    currentPage.value = 1;
   } catch (error) {
     ElMessage.error('Ошибка сохранения данных. Возможно, номер места уже существует.');
   }
@@ -106,6 +146,15 @@ const handleDelete = async (id: number | undefined) => {
             ElMessage.error('Не удалось удалить место. Оно может быть забронировано.');
         }
     }
+};
+
+const handleSizeChange = (val: number) => {
+  pageSize.value = val;
+  currentPage.value = 1;
+};
+
+const handleCurrentChange = (val: number) => {
+  currentPage.value = val;
 };
 
 onMounted(() => {

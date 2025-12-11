@@ -30,11 +30,12 @@
       </div>
 
       <el-table 
-        :data="bookingStore.bookings" 
+        :data="paginatedBookings" 
         v-loading="bookingStore.loading" 
         style="width: 100%; margin-top: 20px"
         stripe
         border
+        :row-key="(row) => row.id"
       >
         <el-table-column label="Автомобиль" width="220">
           <template #default="{ row }">
@@ -86,6 +87,19 @@
             </template>
         </el-table-column>
       </el-table>
+
+    <div class="pagination-container">
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :total="totalBookings"
+        :disabled="bookingStore.loading"
+        layout="prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+
     </el-card>
 
     <el-dialog v-model="dialogVisible" title="Новое бронирование" width="500px">
@@ -139,7 +153,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, computed  } from 'vue';
 import { useBookingStore, type NewBooking, type BookingView } from '../stores/bookingStore';
 import { useManagementStore } from '../stores/managementStore';
 import { ElMessage } from 'element-plus';
@@ -156,6 +170,17 @@ const loadingCars = ref(false);
 const availableCars = ref<any[]>([]);
 const freeSpots = ref<any[]>([]);
 
+const currentPage = ref(1);
+const pageSize = ref(10);
+const totalBookings = computed(() => bookingStore.bookings.length);
+
+const paginatedBookings = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value;
+  const end = start + pageSize.value;
+  return bookingStore.bookings.slice(start, end);
+});
+
+
 const newBooking = reactive<NewBooking>({
     idCar: null,
     idSpot: null,
@@ -164,6 +189,7 @@ const newBooking = reactive<NewBooking>({
 
 const handleSearch = () => {
     bookingStore.fetchBookings(searchCar.value, searchName.value);
+    currentPage.value = 1;
 };
 
 const handlePaymentChange = (row: BookingView) => {
@@ -202,19 +228,27 @@ const submitBooking = async () => {
     }
     const selectedSpot = managementStore.spots.find((s: any) => s.id === newBooking.idSpot);
 
-    if (!selectedSpot || !selectedSpot.isAvailable){
-        ElMessage.error('Это место уже занято');
-        dialogVisible.value = false;
+    try {
         await bookingStore.createBooking(newBooking);
-        return;
+        ElMessage.success('Бронирование создано');
+        dialogVisible.value = false;
+        currentPage.value = 1;
+    } catch (error) {
+        ElMessage.error('Ошибка при создании бронирования');
     }
-
-    await bookingStore.createBooking(newBooking);
-    dialogVisible.value = false;
 };
 
 const formatDate = (dateStr: string) => {
     return dayjs(dateStr).format('DD.MM.YYYY HH:mm');
+};
+
+const handleSizeChange = (val: number) => {
+  pageSize.value = val;
+  currentPage.value = 1;
+};
+
+const handleCurrentChange = (val: number) => {
+  currentPage.value = val;
 };
 
 onMounted(() => {

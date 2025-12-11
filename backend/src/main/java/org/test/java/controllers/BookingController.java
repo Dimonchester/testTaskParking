@@ -44,7 +44,6 @@ public class BookingController {
         }
 
         booking.setStartDate(LocalDateTime.now());
-        booking.setActive(true);
         booking.setPaid(false);
 
         bookingDAO.save(booking);

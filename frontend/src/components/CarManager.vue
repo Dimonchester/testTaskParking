@@ -19,10 +19,11 @@
     </div>
 
     <el-table 
-      :data="store.cars" 
+      :data="paginatedCars" 
       v-loading="store.loading" 
       style="width: 100%; margin-top: 20px" 
       border
+      :row-key="(row) => row.id"
     >
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="carNumber" label="Госномер" width="150" />
@@ -49,6 +50,18 @@
         </template>
       </el-table-column>
     </el-table>
+
+      <div class="pagination-container">
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :total="totalCars"
+        :disabled="store.loading"
+        layout="prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
 
     <el-dialog v-model="dialogVisible" :title="currentCar.id ? 'Редактировать автомобиль' : 'Новый автомобиль'" width="500px">
       <el-form :model="currentCar" label-width="120px">
@@ -102,8 +115,19 @@ const allFio = ref<any[]>([]);
 const initialCarState: Car = { carNumber: '', brand: '', ownerFio: '', idOwner: 0 };
 const currentCar = reactive<Car>({ ...initialCarState });
 
+const currentPage = ref(1);
+const pageSize = ref(10);
+const totalCars = computed(() => store.cars.length);
+
+const paginatedCars = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value;
+  const end = start + pageSize.value;
+  return store.cars.slice(start, end);
+});
+
 const handleSearch = () => {
   store.fetchCars(searchQuery.value);
+  currentPage.value = 1;
 };
 
 const openDialog = (car: Car | null) => {
@@ -137,6 +161,7 @@ const handleSave = async () => {
     await store.saveCar({ ...currentCar });
     ElMessage.success('Автомобиль успешно сохранен.');
     dialogVisible.value = false;
+    currentPage.value = 1;
   } catch (error) {
     ElMessage.error('Ошибка сохранения данных.');
   }
@@ -151,6 +176,15 @@ const handleDelete = async (id: number | undefined) => {
             ElMessage.error('Не удалось удалить автомобиль. Проверьте связи с бронированиями.');
         }
     }
+};
+
+const handleSizeChange = (val: number) => {
+  pageSize.value = val;
+  currentPage.value = 1;
+};
+
+const handleCurrentChange = (val: number) => {
+  currentPage.value = val;
 };
 
 onMounted(() => {

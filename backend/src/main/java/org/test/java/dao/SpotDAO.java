@@ -24,7 +24,7 @@ public class SpotDAO {
     }
 
     public void save(Spot spot){
-        jdbcTemplate.update("INSERT INTO spots(spot_number, is_available) VALUES (?, ?) ", spot.getSpotNumber(), spot.getIsAvailable());
+        jdbcTemplate.update("INSERT INTO spots(spot_number, is_available) VALUES (?, true) ", spot.getSpotNumber());
     }
 
     public void update(int id, Spot updatedSpot){

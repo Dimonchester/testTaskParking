@@ -19,10 +19,11 @@
     </div>
 
     <el-table 
-      :data="store.owners" 
+      :data="paginatedOwners" 
       v-loading="store.loading" 
       style="width: 100%; margin-top: 20px" 
       border
+      :row-key="(row) => row.id"
     >
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column label="ФИО" min-width="250">
@@ -40,7 +41,7 @@
           
           <el-popconfirm
             title="Вы уверены, что хотите удалить владельца?"
-            @confirm="store.deleteOwner(scope.row.id)"
+            @confirm="handleDelete(scope.row.id)"
           >
             <template #reference>
               <el-button link type="danger" size="small">Удалить</el-button>
@@ -49,6 +50,18 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <div class="pagination-container">
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :total="totalOwners"
+        :disabled="store.loading"
+        layout="prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
 
     <el-dialog v-model="dialogVisible" :title="currentOwner.id ? 'Редактировать владельца' : 'Новый владелец'" width="500px">
       <el-form :model="currentOwner" label-width="120px">
@@ -75,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, computed  } from 'vue';
 import { useManagementStore, type Owner } from '../stores/managementStore';
 import { ElMessage } from 'element-plus';
 
@@ -86,8 +99,20 @@ const dialogVisible = ref(false);
 const initialOwnerState: Owner = { firstName: '', lastName: '', middleName: '', phoneNumber: '' };
 const currentOwner = reactive<Owner>({ ...initialOwnerState });
 
+const currentPage = ref(1);
+const pageSize = ref(10);
+const totalOwners = computed(() => store.owners.length);
+
+const paginatedOwners = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value;
+  const end = start + pageSize.value;
+  return store.owners.slice(start, end);
+});
+
+
 const handleSearch = () => {
   store.fetchOwners(searchQuery.value);
+  currentPage.value = 1;
 };
 
 const openDialog = (owner: Owner | null) => {
@@ -109,14 +134,37 @@ const handleSave = async () => {
       await store.saveOwner({ ...currentOwner });
       ElMessage.success('Данные успешно сохранены.');
       dialogVisible.value = false;
+      currentPage.value = 1;
   } catch (e) {
       ElMessage.error('Ошибка сохранения данных.');
   }
 };
 
+const handleDelete = async (id: number | undefined) => {
+    if (id) {
+        try {
+            await store.deleteOwner(id);
+            ElMessage.success('Владелец удален.');
+        } catch (error) {
+            ElMessage.error('Не удалось удалить Владельца. Проверьте связи с бронированиями.');
+        }
+    }
+};
+
+const handleSizeChange = (val: number) => {
+  pageSize.value = val;
+  currentPage.value = 1;
+};
+
+const handleCurrentChange = (val: number) => {
+  currentPage.value = val;
+};
+
 onMounted(() => {
   store.fetchOwners();
 });
+
+
 </script>
 
 <style scoped>

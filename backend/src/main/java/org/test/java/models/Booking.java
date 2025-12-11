@@ -10,18 +10,16 @@ public class Booking {
     private LocalDateTime startDate;
     private LocalDateTime  endDate;
     private boolean isPaid;
-    private boolean isActive;
 
     public Booking(){};
 
-    public Booking(int id, int idCar, int idSpot, LocalDateTime  startDate, LocalDateTime  endDate, boolean isPaid, boolean isActive) {
+    public Booking(int id, int idCar, int idSpot, LocalDateTime  startDate, LocalDateTime  endDate, boolean isPaid) {
         this.id = id;
         this.idCar = idCar;
         this.idSpot = idSpot;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isPaid = isPaid;
-        this.isActive = isActive;
     }
 
     public int getId() {
@@ -70,13 +68,5 @@ public class Booking {
 
     public void setPaid(boolean paid) {
         isPaid = paid;
-    }
-
-    public boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 }

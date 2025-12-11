@@ -12,7 +12,6 @@ export interface BookingView {
     startDate: string;
     endDate: string;
     isPaid: boolean;
-    isActive: boolean;
 }
 
 export interface NewBooking {

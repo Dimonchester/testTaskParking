@@ -11,7 +11,6 @@ public class BookingDTO {
     private LocalDateTime  startDate;
     private LocalDateTime endDate;
     private boolean isPaid;
-    private boolean isActive;
 
     public int getId() {
         return id;
@@ -79,13 +78,5 @@ public class BookingDTO {
 
     public boolean getIsPaid() {
         return isPaid;
-    }
-
-    public boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 }

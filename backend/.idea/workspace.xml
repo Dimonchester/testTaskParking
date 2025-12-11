@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="84158f23-81f9-4eff-a3bd-16c9276cbc11" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/BookingDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dao/SpotDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dao/SpotDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/dto/BookingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/dto/BookingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/models/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/models/Booking.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,18 +43,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.SpringVuejsApp.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Smart Tomcat.server.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;yingxingguihai.polaris.servers&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.SpringVuejsApp.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Smart Tomcat.server.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "yingxingguihai.polaris.servers"
   }
-}</component>
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="84158f23-81f9-4eff-a3bd-16c9276cbc11" name="Changes" comment="" />
