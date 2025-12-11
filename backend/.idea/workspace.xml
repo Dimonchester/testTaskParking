@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="84158f23-81f9-4eff-a3bd-16c9276cbc11" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/test/java/controllers/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/stores/bookingStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/stores/bookingStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/views/BookingPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/BookingPage.vue" afterDir="false" />
-    </list>
+    <list default="true" id="84158f23-81f9-4eff-a3bd-16c9276cbc11" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

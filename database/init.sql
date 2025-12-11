@@ -25,8 +25,7 @@ CREATE TABLE bookings (
 	id_spot INTEGER REFERENCES spots(id) NOT NULL,
 	start_date TIMESTAMP NOT NULL,
 	end_date TIMESTAMP NOT NULL,
-	is_paid BOOLEAN NOT NULL,
-	is_active BOOLEAN NOT NULL
+	is_paid BOOLEAN NOT NULL
 )
 
 INSERT INTO owners (first_name, last_name, middle_name, phone_number) VALUES
@@ -70,9 +69,9 @@ INSERT INTO cars (car_number, brand, id_owner) VALUES
 ('С555СС777', 'BMW 3 Series', 3);
 
 INSERT INTO spots (spot_number, is_available) VALUES
-(1, true),
+(1, false),
 (2, false),
-(3, true),
+(3, false),
 (4, true),
 (5, false),
 (6, true),
@@ -86,17 +85,11 @@ INSERT INTO spots (spot_number, is_available) VALUES
 (14, false),
 (15, true);
 
-
-INSERT INTO bookings (id_car, id_spot, start_date, end_date, is_paid, is_active) VALUES
-(1, 2, '2024-01-15 08:00:00', '2024-01-20 18:00:00', true, true),
-(3, 5, '2024-01-16 09:00:00', '2024-01-22 17:00:00', true, true),
-(5, 8, '2024-01-17 10:00:00', '2024-01-25 19:00:00', false, true),
-(7, 11, '2024-01-18 07:00:00', '2024-01-21 20:00:00', true, true),
-(11, 14, '2024-01-19 08:30:00', '2024-01-26 18:30:00', true, true),
-(13, 2, '2024-01-14 12:00:00', '2024-01-16 14:00:00', true, true),
-(16, 5, '2024-01-23 09:00:00', '2024-01-30 17:00:00', false, true),
-(17, 8, '2024-01-26 10:00:00', '2024-02-02 19:00:00', true, true),
-(19, 11, '2024-01-22 07:00:00', '2024-01-29 20:00:00', false, true),
-(20, 14, '2024-01-27 08:30:00', '2024-02-03 18:30:00', true, true),
-(2, 1, '2024-01-10 08:00:00', '2024-01-12 18:00:00', true, false),
-(4, 3, '2024-01-11 09:00:00', '2024-01-13 17:00:00', true, false);
+INSERT INTO bookings (id_car, id_spot, start_date, end_date, is_paid) VALUES
+(1, 2, '2025-12-13 08:00:00', '2025-12-20 18:00:00', true),
+(3, 5, '2025-12-14 09:00:00', '2025-12-21 17:00:00', true),
+(5, 8, '2025-12-15 10:00:00', '2025-12-22 19:00:00', false),
+(7, 11, '2025-12-16 07:00:00', '2025-12-23 20:00:00', true),
+(11, 14, '2025-12-17 08:30:00', '2025-12-24 18:30:00', true),
+(2, 1, '2025-12-18 08:00:00', '2025-12-15 18:00:00', true),
+(4, 3, '2025-12-19 09:00:00', '2025-12-16 17:00:00', true);
